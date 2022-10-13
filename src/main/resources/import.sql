@@ -1,0 +1,3 @@
+-- INSERT INTO alunos (nome, cpf, senha) values ('Cachorro', '1234', '$2a$05$qzEIx52ohXiYKoW4KxFWeeViTVpzoo24WiTmfgSU5khtmO7MKN9q2');
+-- INSERT INTO alunos (nome, cpf, senha) values ('Jhon', '1234', '$2a$05$qzEIx52ohXiYKoW4KxFWeeViTVpzoo24WiTmfgSU5khtmO7MKN9q2');
+-- INSERT INTO alunos (nome, cpf, senha) values ('Flauter', '1234', '$2a$05$qzEIx52ohXiYKoW4KxFWeeViTVpzoo24WiTmfgSU5khtmO7MKN9q2');

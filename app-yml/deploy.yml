@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: minha-api-deployment
+  labels:
+    app: minha-api
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: minha-api
+  template:
+    metadata:
+      labels:
+        app: minha-api
+    spec:
+      containers:
+      - name: minha-api
+        image: emmnesty/minha-api
+        ports:
+        - containerPort: 8080
