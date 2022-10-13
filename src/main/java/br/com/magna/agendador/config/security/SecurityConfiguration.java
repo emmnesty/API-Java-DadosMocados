@@ -23,43 +23,35 @@ import org.springframework.security.oauth2.config.annotation.web.configuration.E
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-//	@Autowired
-//	private AutenticacaoService autenticacaoService;
+    @Override
+    @Bean
+    protected AuthenticationManager authenticationManager() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
-	@Override
-	@Bean
-	protected AuthenticationManager authenticationManager() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Bean
+    PasswordEncoder bCryptPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Bean
-	PasswordEncoder bCryptPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 
-	// Configuracoes de autenticacao
-//	@Override
-//	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//		auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
-//	}
+    // Configuracoes de autorizacao
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.authorizeRequests()
+                .antMatchers(HttpMethod.GET, "/aluno")
+                .permitAll().antMatchers(HttpMethod.POST, "/auth")
+                .permitAll()
+                .anyRequest().authenticated().and().csrf().disable().sessionManagement()
+                .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-	// Configuracoes de autorizacao
-	@Override
-	protected void configure(HttpSecurity http) throws Exception {
-		http.authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/aluno")
-				.permitAll().antMatchers(HttpMethod.POST, "/auth")
-				.permitAll()
-				.anyRequest().authenticated().and().csrf().disable().sessionManagement()
-				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+    }
 
-	}
+    // Configuracoes de recursos estaticos(js, css, imagens, etc.)
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web.ignoring().antMatchers("/**");
 
-	// Configuracoes de recursos estaticos(js, css, imagens, etc.)
-	@Override
-	public void configure(WebSecurity web) throws Exception {
-		web.ignoring().antMatchers("/**");
-
-	}
+    }
 
 }
